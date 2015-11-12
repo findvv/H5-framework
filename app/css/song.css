@@ -1,0 +1,273 @@
+body {
+  background-color: #000;
+  margin: 0;
+  overflow: hidden;
+  max-width: 640px;
+}
+
+canvas {
+  position: absolute;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+}
+
+section {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  overflow: hidden;
+}
+audio{display: none;}
+#container {
+  display: block;
+  z-index: 1;
+}
+
+#container img {
+  width: 100%;
+  position: absolute;
+  -webkit-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+  opacity: 0;
+}
+
+.page {
+  z-index: 2;
+  opacity: 0;
+}
+.page2{
+  display: none;
+}
+.p1 {
+  width: 640px;
+  height: 240px;
+  display: inline-block;
+  margin-top: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+.p1 div {
+  background-image: url(../img/1.png);
+  position: absolute;
+}
+
+.t1 {
+  left: 130px;
+  top: 0;
+  width: 120px;
+  height: 130px;
+  background-position: -130px 0;
+  transform: translate3d(-300px, -300px, 0);
+  -webkit-transform: translate3d(-300px, -300px, 0);
+  transition: all linear 0.6s 0s;
+  -webkit-transition: all linear 0.6s 0s;
+}
+
+.t2 {
+  left: 190px;
+  top: 140px;
+  width: 70px;
+  height: 60px;
+  background-position: -190px -140px;
+  transform: translate3d(-300px, 300px, 0);
+  -webkit-transform: translate3d(-300px, 300px, 0);
+  transition: all linear 0.6s 0.4s;
+  -webkit-transition: all linear 0.6s 0.4s;
+}
+
+.t3 {
+  left: 260px;
+  top: 70px;
+  width: 105px;
+  height: 105px;
+  background-position: -260px -70px;
+  transform: scale(0);
+  -webkit-transform: scale(0);
+  transition: all linear 0.6s 0.8s;
+  -webkit-transition: all linear 0.6s 0.8s;
+}
+
+.t4 {
+  left: 380px;
+  top: 52px;
+  width: 140px;
+  height: 120px;
+  background-position: -380px -52px;
+  transform: translate3d(300px, -300px, 0);
+  -webkit-transform: translate3d(300px, -300px, 0);
+  transition: all linear 0.6s 1.6s;
+  -webkit-transition: all linear 0.6s 1.6s;
+}
+
+.t5 {
+  left: 335px;
+  top: 170px;
+  width: 80px;
+  height: 70px;
+  background-position: -335px -170px;
+  transform: translate3d(300px, 300px, 0);
+  -webkit-transform: translate3d(300px, 300px, 0);
+  transition: all linear 0.6s 1.2s;
+  -webkit-transition: all linear 0.6s 1.2s;
+}
+
+.p2 {
+  width: 125px;
+  height: 40px;
+  margin: 20px auto;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #e87c59;
+  font-size: 28px;
+  color: #fff;
+}
+
+.p3 {
+  width: 640px;
+  margin-top: 400px;
+  text-align: center;
+  font-size: 28px;
+  color: #a87666;
+}
+
+.p4 {
+  display: block;
+  margin: 0 auto;
+}
+
+.play2 {
+  transition: all linear 1s 1.5s;
+  -webkit-transition: all linear 1s 1.5s;
+  opacity: 0;
+}
+
+.an {
+  opacity: 0;
+}
+
+.play {
+  opacity: 1;
+}
+
+.play .play2 {
+  opacity: 1;
+}
+
+.play .p1 div {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+.play .p1 .t3 {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+}
+
+.shake {
+  -webkit-animation-name: shake;
+  animation-name: shake;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  animation-delay: 3s;
+  -webkit-animation-delay: 3s;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes shake {
+  0%{opacity: 0.2;}
+  100%{opacity: 1;}
+}
+
+@keyframes shake {
+  0%{opacity: 0.2;}
+  100%{opacity: 1;}
+}
+
+.music-page {
+  display: none;
+}
+
+.turn-border {
+  display: inline-block;
+  width: 590px;
+  margin: 240px 25px 0 25px;
+  position: relative;
+  height: 60px;
+}
+
+.turn-border p {
+  width: 40px;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  background-image: url(../img/3.png);
+}
+
+.turn-left {
+  left: 0;
+  background-position: 0 0;
+}
+
+.turn-right {
+  right: 0;
+  background-position: -553px 0;
+}
+
+.control-area{
+  margin-top: 250px;
+  position: relative;
+}
+
+.play-button{
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  z-index: 10;
+  right: 0;
+  top: 590px;
+}
+.b1{
+  position: absolute;
+  top: 595px;
+  left: 118px;
+}
+.b2{
+  position: absolute;
+  top: 595px;
+  right: 118px;
+}
+.b3{
+  position: absolute;
+  top: 820px;
+  left: 118px;
+}
+.b4{
+  position: absolute;
+  top: 820px;
+  right: 118px;
+}
+.authors{
+  position: absolute;
+  top: 910px;
+  width: 100%;
+  line-height: 40px;
+  height: 80px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #755644;
+  text-align: center;
+}
