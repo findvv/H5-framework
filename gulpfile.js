@@ -53,9 +53,7 @@ gulp.task('css',function(){
 //  browserify and compress
 gulp.task('browserify',function(){
   gulp.src('./app/js/main.js')
-  .pipe(browserify({
-    transform: 'reactify',
-  }))
+  .pipe(browserify())
   .pipe(uglyfly())
   .pipe(gulp.dest('./public/js/'))
   .pipe( connect.reload() )
@@ -63,9 +61,7 @@ gulp.task('browserify',function(){
 
 gulp.task('browserifyCompress',function(){
   gulp.src('./app/js/main.js')
-  .pipe(browserify({
-    transform: 'reactify',
-  }))
+  .pipe(browserify())
   .pipe(uglyfly())
   .pipe(gulp.dest('./public/js/'));
 });
