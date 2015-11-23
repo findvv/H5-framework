@@ -1,12 +1,12 @@
 var gulp = require('gulp'),
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
+    uglyfly = require('gulp-uglyfly'),
     less = require('gulp-less'),
     path = require('path'),
     LessPluginCleanCSS = require('less-plugin-clean-css'),
     LessPluginAutoPrefix = require('less-plugin-autoprefix'),
     connect = require('gulp-connect'),
-    port = process.env.port || 5000,
-    browserify = require('gulp-browserify'),
-    uglyfly = require('gulp-uglyfly'),
     cleancss = new LessPluginCleanCSS({
       advanced: true
     }),
@@ -14,8 +14,6 @@ var gulp = require('gulp'),
       browsers: ["ie >= 8", "ie_mob >= 10", "ff >= 26", "chrome >= 30", "safari >= 6", "opera >= 23", "ios >= 5", "android >= 2.3", "bb >= 10"]
     });
 
-
-//  less-->>css
 gulp.task('less', function() {
   gulp.src('./app/less/*.less')
     .pipe(less({
@@ -25,20 +23,9 @@ gulp.task('less', function() {
     .pipe(gulp.dest('./public/css'));
 });
 
-
-//  web-->>http://localhost:5000
-gulp.task('connect',function(){
-  connect.server({
-    // root:'./',
-    port: port,
-    livereload: true,
-  })
-})
-
-
-//  livereload-->>html,css,js
 gulp.task('js',function(){
-  gulp.src('./app/js/main.js')
+  gulp.src('./public/js/bundle.min.js')
+  .pipe( connect.reload() )
 })
 gulp.task('html',function(){
   gulp.src('./index.html')
@@ -49,32 +36,35 @@ gulp.task('css',function(){
   .pipe( connect.reload() )
 });
 
-
-//  browserify and compress
-gulp.task('browserify',function(){
-  gulp.src('./app/js/main.js')
-  .pipe(browserify())
-  .pipe(uglyfly())
-  .pipe(gulp.dest('./public/js/'))
-  .pipe( connect.reload() )
+gulp.task('connect',function(){
+  connect.server({
+    port: 5000,
+    livereload: true
+  });
 });
 
-gulp.task('browserifyCompress',function(){
-  gulp.src('./app/js/main.js')
-  .pipe(browserify())
-  .pipe(uglyfly())
-  .pipe(gulp.dest('./public/js/'));
+gulp.task('browserify', function() {
+  browserify('./app/js/main.js')
+    .transform("babelify", {
+      presets: ["es2015"]
+    })
+    .bundle()
+    .pipe(source('bundle.min.js'))
+    .pipe(gulp.dest('./public/js/'))
+    .pipe(uglyfly())
+    .pipe(gulp.dest('./public/js/'))
+    .pipe( connect.reload() )
 });
-
 
 gulp.task('watch', function() {
   gulp.watch('./app/less/*.less', ['less']);
-  gulp.watch('./app/js/*.js',['js']);
+  gulp.watch('./app/js/*.js',['browserify']);
+  gulp.watch('./app/js/*/*.js',['browserify']);
+  gulp.watch('./public/js/bundle.min.js',['js']);
   gulp.watch('./index.html',['html']);
   gulp.watch('./public/css/*.css',['css']);
-  gulp.watch('./app/js/**/*.js',['browserify']);
 });
 
-gulp.task('default', ['less','browserifyCompress']);
 gulp.task('serve',['less','browserify','connect','watch']);
 
+gulp.task('default', ['less','browserify']);

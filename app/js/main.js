@@ -1,23 +1,6 @@
   // var Loader = require('./modules/preload.js').resLoader,
   //   touchJs = require('./modules/touch-0.2.14.min.js'),
   //   $ = require('./modules/jquery-2.1.1.min.js');
-  function adjust() {
-    var b = document.documentElement.clientWidth,
-      a = document.documentElement.clientHeight,
-      r = b / 640,
-      o = 1136 / 640,
-      i = document.getElementById('zzx').style;
-    if (r > 1) {
-      r = 1;
-    }
-    else{
-      i.left = (b - 640) / 2 + "px";
-      i.top = (b * o - 1136) / 2 + (a - b * o) + "px";
-    }
-    i.webkitTransform = "scale(" + r + ")";
-    i.transform = "scale(" + r + ")";
-    
-  }
   // var loader = new Loader({
   //   resources: [
   //     'http://news.sohu.com/upload/picfragmentzzx/img/persons/10.jpg',
@@ -40,4 +23,13 @@
   //   }
   // });
   // loader.start();
-  adjust();
+  var obj = new Proxy({}, {
+  get: function (target, key, receiver) {
+    console.log(`getting ${key}!`);
+    return Reflect.get(target, key, receiver);
+  },
+  set: function (target, key, value, receiver) {
+    console.log(`setting ${key}!`);
+    return Reflect.set(target, key, value, receiver);
+  }
+});
